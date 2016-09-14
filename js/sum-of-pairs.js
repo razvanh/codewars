@@ -1,28 +1,14 @@
 var sum_pairs=function(ints, s){
-    var match=[];
-    loop1:
-    for(var i=0;i<ints.length-1;i++){
-      loop2:
-      for(var j=i+1;j<ints.length;j++){
-        if ((ints[i]+ints[j])===s) {
-          match.push(
-          {i:i,j:j}
-          );
-        }
+    var cached={};//hold numbers checked
+    for(var i=0,j=ints.length;i<j;i++){
+      var n1=ints[i];
+      var n2=s-n1;
+      if(n2 in cached){
+        return [n2,n1];
+      }
+      else {
+        cached[n1]=1;
       }
     }
-    
-    if(match.length===1){
-     return [ints[match[0]["i"]],ints[match[0]["j"]]]; 
-     
-    }
-    else if(match.length>1){
-      match.sort(function(a, b) {
-        return a.j - b.j;
-      });
-     return [ints[match[0]["i"]],ints[match[0]["j"]]]; 
-    }
-    else return undefined; 
-    
-    
+    return undefined;
 }
